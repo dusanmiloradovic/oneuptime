@@ -299,12 +299,12 @@ export default class RunWorkflow {
           return;
         }
 
-        if (interactive && !interactiveRes){
-          // The value from the database still has the interactive value in it, need to remove it
-          this.log("Updating the workflow database record, removint the interactive data");
+        if (interactive?.waiting && interactiveRes && interactiveRes.waiting === false){
+          // The value from the database still has the interactive value in it, need to update it
+          this.log("Updating the workflow database record, removing the interactive data");
           await WorkflowService.updateOneById({
             data: {
-              interactiveData: undefined as any, //TS-2589
+              interactiveData: interactiveRes as any, //TS-2589
             },
             id: runProps.workflowId,
             props: {
