@@ -240,7 +240,7 @@ export default class RunWorkflow {
           returnValues: result.returnValues,
         };
 
-        const interactiveRes: Interactive | undefined = result.interactive; // TODO the actual data conversion, dates are converted into strings when writing to the database
+        const interactiveRes: Interactive | undefined = result.interactive;
         if (interactiveRes?.waiting) {
           this.log(
             "Interactive component " +
