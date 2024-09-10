@@ -299,9 +299,11 @@ export default class RunWorkflow {
           return;
         }
 
-        if (interactive?.waiting && interactiveRes && interactiveRes.waiting === false){
+        if (interactive?.waiting && interactiveRes && !interactiveRes.waiting) {
           // The value from the database still has the interactive value in it, need to update it
-          this.log("Updating the workflow database record, removing the interactive data");
+          this.log(
+            "Updating the workflow database record, removing the interactive data",
+          );
           await WorkflowService.updateOneById({
             data: {
               interactiveData: interactiveRes as any, //TS-2589
@@ -311,7 +313,6 @@ export default class RunWorkflow {
               isRoot: true,
             },
           });
-
         }
         const portToBeExecuted: Port | undefined = result.executePort;
 
